@@ -7,11 +7,15 @@ function Calendar(props) {
   const handleSelect = (e) => {
     setOption(e.target.value);
   };
-  // const onChange = (date, dateString) => {
-  //   // console.log(date, dateString);
-  // };
+
+  const weekFormat = "MM/DD";
+  const customWeekStartEndFormat = (value) =>
+    `${dayjs(value).startOf("week").format(weekFormat)} ~ ${dayjs(value)
+      .endOf("week")
+      .format(weekFormat)}`;
+
   return (
-    <div className="px-4 py-4 w-[270px] flex items-center gap-[10px] border mt-[10px] ml-[10px] rounded-md">
+    <div className="px-4 py-4 w-[295px] flex items-center gap-[10px] border mt-[10px] ml-[10px] rounded-md">
       <select
         name="datepicker"
         id="datepicker"
@@ -23,8 +27,8 @@ function Calendar(props) {
       </select>
       <Space direction="vertical">
         <DatePicker
-          defaultValue={dayjs("2023-01-01", "YYYY-MM-DD")}
-          // onChange={onChange}
+          defaultValue={dayjs()}
+          format={option === "week" ? customWeekStartEndFormat : "YYYY/MM"}
           picker={option === "week" ? "week" : "month"}
         />
       </Space>
